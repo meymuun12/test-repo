@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+	<title>Hotel Dashboard Template</title>
+	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
+	<link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="assets/css/feathericon.min.css">
+	<link rel="stylesheet" href="assets/plugins/morris/morris.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap-datetimepicker.min.css">
+	<link rel="stylesheet" href="assets/css/style.css"> </head>
+
+<body>
+	<script>
+		// Check if the user is logged in
+		var loggedInUserEmail = sessionStorage.getItem('role');
+		if (!loggedInUserEmail) {
+		  // Redirect to login.html if the user is not logged in
+		  window.location.href = 'login.html';
+		}
+
+	  </script>
+	<div class="main-wrapper">
+		<div class="header">
+			<div class="header-left">
+				<a href="index.html" class="logo"> <img src="assets/img/logo.svg" width="50" height="70" alt="logo"> <span class="logoclass">E-comerce </span> </a>
+				<a href="index.html" class="logo logo-small"> <img src="assets/img/logo.svg" alt="Logo" width="30" height="30"> </a>
+			</div>
+			<a href="javascript:void(0);" id="toggle_btn"> <i class="fe fe-text-align-left"></i> </a>
+			<a class="mobile_btn" id="mobile_btn"> <i class="fas fa-bars"></i> </a>
+			<ul class="nav user-menu">
+			
+				<li class="nav-item dropdown has-arrow">
+					<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"> <span class="user-img"><img class="rounded-circle" src="assets/img/profiles/avatar-01.jpg" width="31" alt="Soeng Souy"></span> </a>
+					<div class="dropdown-menu">
+						<div class="user-header">
+							<div class="avatar avatar-sm"> <img src="assets/img/profiles/avatar-01.jpg" alt="User Image" class="avatar-img rounded-circle"> </div>
+							<div class="user-text">
+								<h6></h6>
+								<p class="text-muted mb-0"></p>
+							</div>
+						</div> <a class="dropdown-item" href="profile.html">My Profile</a> <a class="dropdown-item" href="settings.html">Account Settings</a> <a class="dropdown-item" href="login.html">Logout</a> </div>
+				</li>
+				  <script>
+					// Read the logged-in user's email from sessionStorage
+					var loggedInUserEmail = sessionStorage.getItem('customernow');
+					if (loggedInUserEmail) {
+					  var emailElement = document.getElementById('userEmail');
+					  emailElement.innerText = loggedInUserEmail;
+					}
+				  
+					// Read the logged-in user's name and role from sessionStorage
+					var name = sessionStorage.getItem('name');
+					var role = sessionStorage.getItem('role');
+				  
+					// Update the dropdown menu with the user's name and role
+					var userNameElement = document.querySelector('.user-text h6');
+					var userRoleElement = document.querySelector('.user-text p');
+					if (name && role) {
+					  userNameElement.innerText = name;
+					  userRoleElement.innerText = role;
+					}
+					document.getElementById("logout-link").addEventListener("click", function() {
+					// Clear the session storage and redirect to the login page
+						sessionStorage.clear();
+						window.location.href = "login.html";
+					});
+				  </script>
+				  
+			</ul>
+			<div class="top-nav-search">
+				<form>
+					<input type="text" class="form-control" placeholder="Search here">
+					<button class="btn" type="submit"><i class="fas fa-search"></i></button>
+				</form>
+			</div>
+		</div>
+		<div class="sidebar" id="sidebar">
+			<div class="sidebar-inner slimscroll">
+				<div id="sidebar-menu" class="sidebar-menu">
+
+				</div>
+				<script>
+					// Retrieve the role from sessionStorage
+					var role = sessionStorage.getItem('role');
+				  
+					// Get the sidebar menu element
+					var sidebarMenu = document.getElementById('sidebar-menu');
+				  
+					// Define the sidebar content based on the user's role
+					var sidebarContent = '';
+				  
+					if (role === 'Admin') {
+					  sidebarContent += `
+					  <ul>
+						<li><a href="index.html"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+						<li class="list-divider"></li>
+						
+						<li class="submenu">
+							<li class="submenu">
+								<a href="#">
+									<i class="fas fa-user-shield"></i>
+									<span>Administrator</span>
+									<span class="menu-arrow"></span>
+								</a>
+								<ul class="submenu_class" style="display: none;">
+									<li><a href="all-user.html">Users</a></li>
+									<li><a href="all-staff.html">Staff</a></li>
+									<li><a href="add-role.html">Role</a></li>
+									
+								</ul>
+							</li>
+							<li class="submenu">
+								<a href="#">
+									<i class="fas fa-user-tie"></i>
+									<span>Customers</span>
+									<span class="menu-arrow"></span>
+								</a>
+								<ul class="submenu_class" style="display: none;">
+									<li><a href="all-customers.html">All Customers</a></li>
+									<li><a href="all-oders.html">Orders</a></li>
+									<li><a href="invoices.html">Invoices</a></li>
+								</ul>
+							</li>
+						
+						
+						<li class="submenu">
+							<a href="#">
+								<i class="fas fa-box"></i>
+								<span>Products</span>
+								<span class="menu-arrow"></span>
+							</a>
+							<ul class="submenu_class" style="display: none;">
+								<li><a href="all-products.html">All Products</a></li>
+								<li><a href="all-categories.html">Categories</a></li>
+							</ul>
+						</li>
+						
+						<li class="submenu">
+							<a href="#">
+								<i class="fas fa-money-check"></i>
+								<span>Payments</span>
+								<span class="menu-arrow"></span>
+							</a>
+							<ul class="submenu_class" style="display: none;">
+								<li><a href="all-payments.html">Payments</a></li>
+								<li><a href="all-payment-method.html">Payment Method</a></li>
+							</ul>
+						</li>
+						<li class="submenu">
+							<a href="#">
+								<i class="fas fa-money-check"></i>
+								<span>Delevery</span>
+								<span class="menu-arrow"></span>
+							</a>
+							<ul class="submenu_class" style="display: none;">
+								<li><a href="all-Delevery.html">Delevery</a></li>
+							</ul>
+						</li>
+						<li class="submenu">
+							<a href="#">
+								<i class="fe fe-table"></i> 
+								<span>Reports</span>
+								<span class="menu-arrow"></span>
+							</a>
+							<ul class="submenu_class" style="display: none;">
+								<li><a href="All-reports.html">All-reports</a></li>
+							</ul>
+						</li>
+						<li>	
+							<a href="settings.html"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+							<li class="list-divider"></li>
+
+							<li> <a href="login.html"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a> </li>
+					</ul>					  `;
+					}else if (role === 'Seller') {
+					  sidebarContent += `
+		
+					  <ul>
+						<li><a href="index.html"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+						<li class="list-divider"></li>
+						
+							<li class="submenu">
+								<a href="#">
+									<i class="fas fa-user-tie"></i>
+									<span>Customers</span>
+									<span class="menu-arrow"></span>
+								</a>
+								<ul class="submenu_class" style="display: none;">
+									<li><a href="all-customers.html">All Customers</a></li>
+									<li><a href="all-oders.html">Orders</a></li>
+									<li><a href="invoices.html">Invoices</a></li>
+								</ul>
+							</li>
+						
+						
+						<li class="submenu">
+							<a href="#">
+								<i class="fas fa-box"></i>
+								<span>Products</span>
+								<span class="menu-arrow"></span>
+							</a>
+							<ul class="submenu_class" style="display: none;">
+								<li><a href="all-products.html">All Products</a></li>
+								<li><a href="all-categories.html">Categories</a></li>
+							</ul>
+						</li>
+						
+						<li class="submenu">
+							<a href="#">
+								<i class="fas fa-money-check"></i>
+								<span>Delevery</span>
+								<span class="menu-arrow"></span>
+							</a>
+							<ul class="submenu_class" style="display: none;">
+								<li><a href="all-Delevery.html">Delevery</a></li>
+							</ul>
+						</li>
+						<li class="submenu">
+							<a href="#">
+								<i class="fe fe-table"></i> 
+								<span>Reports</span>
+								<span class="menu-arrow"></span>
+							</a>
+							<ul class="submenu_class" style="display: none;">
+								<li><a href="All-reports.html">All-reports</a></li>
+							</ul>
+						</li>
+						<li>	
+							<a href="settings.html"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+							<li class="list-divider"></li>
+
+							<li> <a href="login.html"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a> </li>
+					</ul>
+		
+					  `;
+					} else if (role === 'Cashier') {
+					  sidebarContent += `
+					  <ul>
+						<li><a href="index.html"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+						<li class="list-divider"></li>
+						
+						<li class="submenu">
+							<a href="#">
+								<i class="fas fa-money-check"></i>
+								<span>Payments</span>
+								<span class="menu-arrow"></span>
+							</a>
+							<ul class="submenu_class" style="display: none;">
+								<li><a href="all-payments.html">Payments</a></li>
+								<li><a href="all-payment-method.html">Payment Method</a></li>
+							</ul>
+						</li>
+
+						<li class="submenu">
+							<a href="#">
+								<i class="fe fe-table"></i> 
+								<span>Reports</span>
+								<span class="menu-arrow"></span>
+							</a>
+							<ul class="submenu_class" style="display: none;">
+								<li><a href="All-reports.html">All-reports</a></li>
+							</ul>
+						</li>
+						<li>	
+							<a href="settings.html"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+							<li class="list-divider"></li>
+
+							<li> <a href="login.html"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a> </li>
+					</ul>
+					  `;
+					} else {
+					  // Handle other roles if needed
+					}
+				  
+					// Set the sidebar content
+					sidebarMenu.innerHTML = sidebarContent;
+				  </script>
+				
+				  
+			</div>
+		</div>
+		<div class="page-wrapper">
+			<div class="content container-fluid">
+				<div class="page-header">
+					<div class="row align-items-center">
+						<div class="col">
+							<h3 class="page-title mt-5">Update  payment-methode</h3> </div>
+					</div>
+				</div>
+				<div class="row">
+                    <div class="col-lg-12">
+                        <form id="payme-form">
+                            <div class="row formtype">
+                              
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>PaymentTeype</label>
+                                  <input class="form-control" type="text" id="PaymentTeype" name="PaymentTeype"required>
+                                </div>
+                              </div>
+                              
+                              
+                            </div>
+                            <button type="submit" class="btn btn-primary buttonedit1">Update payment-method</button>
+                          </form>
+                    </div>
+                  </div>
+                  
+			</div>
+		</div>
+	</div>
+    
+	<Script>
+		$(document).ready(function() {
+		var paymeId = new URLSearchParams(window.location.search).get('id');	
+	  // Fetch staff data and populate the "Name" select dropdown
+	console.log(paymeId);
+	  // Fetch role data and populate the "Title" select dropdown
+	  $.ajax({
+		url: 'https://localhost:7015/api/paymentmethods/'+paymeId,
+		method: 'GET',
+		success: function(response) {
+		   
+			$('#PaymentTeype').val(response.paymentTeype);
+		
+		  // Add options from API response
+		  
+		},
+		error: function(error) {
+		  console.error('Error fetching role data:', error);
+		}
+	  });
+	
+	  // Submit form data
+	  $('#payme-form').submit(function(event) {
+		event.preventDefault(); // Prevent the default form submission
+	
+	
+	
+		// Get form data
+		var formData = {
+			//Stafid: $('#Name').val(),
+			paymentTeype: $('#PaymentTeype').val(),
+			
+		  
+		};
+		console.log(formData);
+
+	
+		// Make AJAX request
+		$.ajax({
+			url: 'https://localhost:7015/api/paymentmethods/'+paymeId,
+		  method: 'PUT',
+		  data: JSON.stringify(formData),
+		  contentType: 'application/json',
+		  success: function(response) {
+			//console.log(formData);
+			console.log('User created successfully:', response);
+			window.location.href = 'all-payment-method.html'; // Change header location to all-
+
+			// Handle success response here, such as showing a success message
+		  },
+		  
+		  error: function(error) {
+			console.error('Error creating user:', error);
+			// Handle error response here, such as showing an error message
+		  }
+		});
+	   });
+	});
+	
+	
+	
+	
+	  </Script>
+                  
+	<script src="assets/js/jquery-3.5.1.min.js"></script>
+	<script src="assets/js/popper.min.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+	<script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="assets/plugins/raphael/raphael.min.js"></script>
+	<script src="assets/js/moment.min.js"></script>
+	<script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="assets/js/script.js"></script>
+	<script>
+	$(function() {
+		$('#datetimepicker3').datetimepicker({
+			format: 'LT'
+		});
+	});
+	</script>
+</body>
+
+</html>

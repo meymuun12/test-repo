@@ -1,0 +1,87 @@
+<!-- CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+<!-- Add custom CSS styles -->
+<link rel="stylesheet" href="styles.css">
+
+<!-- JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <h1>Report Title</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <div class="card-header">
+            <h2>Report Summary</h2>
+          </div>
+          <div class="card-body">
+            <!-- Report content goes here -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <div class="card-header">
+            <h2>Report Details</h2>
+          </div>
+          <div class="card-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Column 1</th>
+                  <th>Column 2</th>
+                  <th>Column 3</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Data 1</td>
+                  <td>Data 2</td>
+                  <td>Data 3</td>
+                </tr>
+                <!-- Add more rows as needed -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<script>
+$(document).ready(function() {
+    // Fetch data from an API
+    $.ajax({
+      url: "https://api.example.com/reports",
+      method: "GET",
+      dataType: "json",
+      success: function(data) {
+        // Process and populate the report using data
+      },
+      error: function() {
+        // Handle error case
+      }
+    });
+  
+    // Alternatively, use preloaded data
+    var reportData = [
+      { column1: "Data 1", column2: "Data 2", column3: "Data 3" },
+      // Add more data objects as needed
+    ];
+  
+    // Populate the report dynamically
+    reportData.forEach(function(item) {
+      var row = $("<tr></tr>");
+      row.append("<td>" + item.column1 + "</td>");
+      row.append("<td>" + item.column2 + "</td>");
+      row.append("<td>" + item.column3 + "</td>");
+      $("table tbody").append(row);
+    });
+  });
+</script>
+  

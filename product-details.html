@@ -1,0 +1,426 @@
+<!-- /*
+* Bootstrap 5
+* Template Name: Furni
+* Template Author: Untree.co
+* Template URI: https://untree.co/
+* License: https://creativecommons.org/licenses/by/3.0/
+*/ -->
+<!doctype html>
+<html lang="en">
+<head>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Untree.co">
+  <link rel="shortcut icon" href="favicon.png">
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="bootstrap, bootstrap4" />
+
+
+		<!-- Bootstrap CSS -->
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+		<link href="css/tiny-slider.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		<title>Ecoomerece system by the course work of uct students sem 6 group A</title>
+		<style>
+            
+            
+			.rating-stars {
+                transform: scale(1.6);
+
+			  color: #ffd700; /* Set the color for the stars */
+			}
+            
+
+
+.product-title {
+    /* Apply scaling to the product title */
+    transform: scale(1.6); /* Adjust the scale value as needed */
+}
+
+.product-price {
+    /* Apply scaling to the product price */
+    transform: scale(6); /* Adjust the scale value as needed */
+}
+
+.rating-stars {
+    /* Apply scaling to the rating stars */
+    transform: scale(1.6); /* Adjust the scale value as needed */
+}
+		  
+			.star {
+			  display: inline-block;
+			  width: 20px; /* Set the width of each star */
+			  height: 20px; /* Set the height of each star */
+			  background-image: url("star-icon.png"); /* Replace with the path to your star icon image */
+			  background-size: cover;
+			}
+            .product-item {
+                /* Adjust the width and height to make the products larger */
+                width: 450px;
+                height:auto;
+                /* Add any additional styles as needed */
+            }
+
+		  
+			.filled {
+			  background-position: 0 -20px; /* Adjust the background position for filled stars */
+			}
+
+
+
+		  </style>
+		  
+	</head>
+
+	<body>
+
+		<!-- Start Header/Navigation -->
+		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+
+			<div class="container">
+				<a class="navbar-brand" href="home.html">Sommart<span>.</span></a>
+
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<form class="d-flex">
+					<input class="form-control me-2 rounded-pill" type="search" placeholder="Search products" aria-label="Search">
+					<button class="btn btn-outline-light rounded-pill" type="submit">
+					  <i class="fas fa-search"></i> <!-- Font Awesome search icon -->
+					</button>
+				  </form>
+				  
+
+				<div class="collapse navbar-collapse" id="navbarsFurni">
+					<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+						<li class="nav-item active">
+							<a class="nav-link" href="home.html">Home</a>
+						</li>
+						<li><a class="nav-link" href="shop.html">Shop</a></li>
+						<li><a class="nav-link" href="about.html">About us</a></li>
+						<li><a class="nav-link" href="services.html">Services</a></li>
+						<li><a class="nav-link" href="blog.html">Blog</a></li>
+						<li><a class="nav-link" href="contact.html">Contact us</a></li>
+					</ul>
+
+					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+						<li><a class="nav-link" href="#"><img src="images/user.svg"></a></li>
+						<li><a class="nav-link" href="cart.html"><img src="images/cart.svg"></a></li>
+					</ul>
+					
+				</div>
+			</div>
+				
+		</nav>
+		<!-- End Header/Navigation -->
+		
+
+		<!-- Start Hero Section -->
+			<div class="hero">
+				<div class="container">
+					<div class="row justify-content-between">
+						<div class="col-lg-5">
+							<div class="intro-excerpt">
+								<h1>No.1   <span clsas="d-block">E commerece</span></h1>
+								<p class="mb-4">in somaia</p>
+								<p><a href="" class="btn btn-secondary me-2">Shop Now</a><a href="#" class="btn btn-white-outline">Explore</a></p>
+							</div>
+						</div>
+						<div class="col-lg-7">
+							<div class="hero-img-wrap">
+								<img src="images/couch.png" class="img-fluid">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	
+
+			<!-- Start Product Section -->
+ 
+		<!-- End Product Section -->
+
+		<div class="product-section">
+			<div class="container">
+				<div class="row" id="product-row"></div>
+			</div>
+		</div>
+		<!-- <div class="checkout-info">
+			<h4>Checkout Information</h4>
+			<p id="shipping-address"></p>
+			<p id="payment-method"></p>
+		  </div> -->
+	
+		<script>
+			$(document).ready(function() {
+  // Open the side cart with the selected product
+  function openSideCart(product) {
+    // Create cart item HTML
+    var cartItem = document.createElement("div");
+    cartItem.classList.add("cart-item");
+    cartItem.innerHTML = `
+      <div class="item-image">
+        <img src="images/${product.imagePath}" alt="${product.productName}" class="img-fluid">
+      </div>
+      <div class="item-details">
+        <h4 class="item-title">${product.productName}</h4>
+        <p class="item-price">$${product.price.toFixed(2)}</p>
+      </div>
+    `;
+
+    // Append the cart item to the cart items container
+    document.getElementById("cart-items").appendChild(cartItem);
+
+    // Open the side cart
+    document.getElementById("side-cart").classList.add("open");
+  }
+
+  // Close the side cart
+  function closeSideCart() {
+    document.getElementById("side-cart").classList.remove("open");
+    document.getElementById("cart-items").innerHTML = ""; // Clear the cart items
+  }
+
+  // Make AJAX request to fetch the products
+  $.ajax({
+    url: "https://localhost:7015/api/products",
+    method: "GET",
+    dataType: "json",
+    success: function(data) {
+      // Add event listener to the parent container using event delegation
+      document.getElementById("product-row").addEventListener("click", function(event) {
+        // Check if the clicked element has the "product-item" class
+        if (event.target.classList.contains("product-item")) {
+          event.preventDefault();
+          // Find the product data by traversing the DOM
+          var productLink = event.target;
+          while (!productLink.classList.contains("product-item")) {
+            productLink = productLink.parentNode;
+          }
+          var productId = productLink.getAttribute("href").split("=")[1];
+          var product = data.find(function(p) {
+            return p.productId === productId;
+          });
+          openSideCart(product);
+        }
+      });
+
+      // Iterate over each product and create HTML elements dynamically
+      data.forEach(function(product) {
+        // Create product item
+        var productItem = document.createElement("div");
+        productItem.classList.add("col-12", "col-md-4", "col-lg-3", "mb-5", "mb-md-0");
+
+        // Create product link
+        var productLink = document.createElement("a");
+        productLink.classList.add("product-item");
+        productLink.href = "product-details.html?id=" + product.productId;
+
+        // Create product image
+        var productImage = document.createElement("img");
+        productImage.classList.add("img-fluid", "product-thumbnail");
+        productImage.src = "images/" + product.imagePath;
+
+        // Append elements to the product link
+        productLink.appendChild(productImage);
+
+        // Append product link to the product item
+        productItem.appendChild(productLink);
+
+        // Append product item to the product row
+        document.getElementById("product-row").appendChild(productItem);
+      });
+    },
+    error: function() {
+      console.log("Error fetching products from API.");
+    }
+  });
+
+  // Add click event listener to close the side cart
+  document.getElementById("close-cart").addEventListener("click", closeSideCart);
+});
+
+			$(document).ready(function() {
+				var productId = new URLSearchParams(window.location.search).get('id');
+	
+				console.log(productId);
+				// Make AJAX request to fetch the specific product
+				$.ajax({
+					url: "https://localhost:7015/api/products/" + productId,
+					method: "GET",
+					dataType: "json",
+					success: function(product) {
+						var productItem = document.createElement("div");
+						productItem.classList.add("col-12", "col-md-4", "col-lg-3", "mb-5", "mb-md-0");
+						var productLink = document.createElement("a");
+						productLink.classList.add("product-item");
+						productLink.href = "cart.html?id=" + product.productId;
+						var productImage = document.createElement("img");
+						productImage.classList.add("img-fluid", "product-thumbnail");
+						productImage.src = "images/" + product.imagePath;
+						var productTitle = document.createElement("h3");
+						productTitle.classList.add("product-title");
+						productTitle.innerText = product.productName;
+						var productPrice = document.createElement("strong");
+						productPrice.classList.add("product-price");
+						productPrice.innerText = "$" + product.price.toFixed(2);
+						var ratingStars = document.createElement("div");
+						ratingStars.classList.add("rating-stars");
+						// Assuming the product's rating is between 1 and 5
+						for (var i = 1; i <= 5; i++) {
+							var starIcon = document.createElement("span");
+							starIcon.classList.add("star");
+							if (i <= product.rating) {
+								starIcon.classList.add("filled");
+							}
+							ratingStars.appendChild(starIcon);
+						}
+	
+						var iconCross = document.createElement("span");
+						iconCross.classList.add("icon-cross");
+						var crossImage = document.createElement("img");
+						crossImage.classList.add("img-fluid");
+						crossImage.src = "images/cross.svg";
+						// Append elements to the product link
+						productLink.appendChild(productImage);
+						productLink.appendChild(productTitle);
+						productLink.appendChild(productPrice);
+						productLink.appendChild(ratingStars);
+						productLink.appendChild(iconCross);
+						iconCross.appendChild(crossImage);
+						// Append product link to the product item
+						productItem.appendChild(productLink);
+						// Append product item to the product row
+						document.getElementById("product-row").appendChild(productItem);
+	
+						// Apply CSS styles to the product item container
+						productItem.style.display = "flex";
+						productItem.style.flexDirection = "column";
+						productItem.style.marginLeft = "20px";
+					},
+					error: function() {
+						console.log("Error fetching product details from API.");
+					}
+				});
+			});
+		</script>
+	
+		  </div>
+		  
+
+	
+		<footer class="footer-section">
+			<div class="container relative">
+
+				<div class="sofa-img">
+					<img src="images/sofa.png" alt="Image" class="img-fluid">
+				</div>
+
+				<div class="row">
+					<div class="col-lg-8">
+						<div class="subscription-form">
+							<h3 class="d-flex align-items-center"><span class="me-1"><img src="images/envelope-outline.svg" alt="Image" class="img-fluid"></span><span>Subscribe to Newsletter</span></h3>
+
+							<form action="#" class="row g-3">
+								<div class="col-auto">
+									<input type="text" class="form-control" placeholder="Enter your name">
+								</div>
+								<div class="col-auto">
+									<input type="email" class="form-control" placeholder="Enter your email">
+								</div>
+								<div class="col-auto">
+									<button class="btn btn-primary">
+										<span class="fa fa-paper-plane"></span>
+									</button>
+								</div>
+							</form>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="row g-5 mb-5">
+					<div class="col-lg-4">
+						<div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo">Furni<span>.</span></a></div>
+						<p class="mb-4">Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant</p>
+
+						<ul class="list-unstyled custom-social">
+							<li><a href="#"><span class="fa fa-brands fa-facebook-f"></span></a></li>
+							<li><a href="#"><span class="fa fa-brands fa-twitter"></span></a></li>
+							<li><a href="#"><span class="fa fa-brands fa-instagram"></span></a></li>
+							<li><a href="#"><span class="fa fa-brands fa-linkedin"></span></a></li>
+						</ul>
+					</div>
+
+					<div class="col-lg-8">
+						<div class="row links-wrap">
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">About us</a></li>
+									<li><a href="#">Services</a></li>
+									<li><a href="#">Blog</a></li>
+									<li><a href="#">Contact us</a></li>
+								</ul>
+							</div>
+
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">Support</a></li>
+									<li><a href="#">Knowledge base</a></li>
+									<li><a href="#">Live chat</a></li>
+								</ul>
+							</div>
+
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">Jobs</a></li>
+									<li><a href="#">Our team</a></li>
+									<li><a href="#">Leadership</a></li>
+									<li><a href="#">Privacy Policy</a></li>
+								</ul>
+							</div>
+
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">Nordic Chair</a></li>
+									<li><a href="#">Kruzo Aero</a></li>
+									<li><a href="#">Ergonomic Chair</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="border-top copyright">
+					<div class="row pt-4">
+						<div class="col-lg-6">
+							<p class="mb-2 text-center text-lg-start">Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by <a href="https://untree.co">Untree.co</a> <!-- License information: https://untree.co/license/ -->
+            </p>
+						</div>
+
+						<div class="col-lg-6 text-center text-lg-end">
+							<ul class="list-unstyled d-inline-flex ms-auto">
+								<li class="me-4"><a href="#">Terms &amp; Conditions</a></li>
+								<li><a href="#">Privacy Policy</a></li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</footer>
+		<!-- End Footer Section -->	
+
+
+		<script src="js/bootstrap.bundle.min.js"></script>
+		<script src="js/tiny-slider.js"></script>
+		<script src="js/custom.js"></script>
+	</body>
+
+</html>

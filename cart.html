@@ -1,0 +1,842 @@
+<!-- /*
+* Bootstrap 5
+* Template Name: Furni
+* Template Author: Untree.co
+* Template URI: https://untree.co/
+* License: https://creativecommons.org/licenses/by/3.0/
+*/ -->
+<script>
+	// Check if the user is logged in
+	var loggedInUserEmail = sessionStorage.getItem('customerid');
+	
+	if (!loggedInUserEmail) {
+	  // Redirect to login.html if the user is not logged in
+	  window.location.href = 'login-customer.html';
+	}
+  </script>
+ 
+
+<!doctype html>
+<html lang="en">
+<head>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Untree.co">
+  <link rel="shortcut icon" href="favicon.png">
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="bootstrap, bootstrap4" />
+
+		<!-- Bootstrap CSS -->
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+		<link href="css/tiny-slider.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		<title>Sommart. </title>
+		<style>
+			.btn-cart {
+    font-size: 18px;
+    padding: 10px 20px;
+    background-color: #1080b5;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-cart i {
+    margin-right: 5px;
+  }
+  
+  .btn-cart:hover {
+    background-color: #fdd835;
+    border-radius: 20px;
+  }
+			.rating-stars {
+			  color: #ffd700; /* Set the color for the stars */
+			}
+		  
+			.star {
+			  display: inline-block;
+			  width: 20px; /* Set the width of each star */
+			  height: 20px; /* Set the height of each star */
+			  background-image: url("star-icon.png"); /* Replace with the path to your star icon image */
+			  background-size: cover;
+			}
+			.dropdown-item .product-thumbnail {
+  width: 40px; /* Adjust the width as needed */
+  height: 40px; /* Adjust the height as needed */
+  margin-right: 10px; /* Add margin for spacing */
+}
+
+		  
+			.filled {
+			  background-position: 0 -20px; /* Adjust the background position for filled stars */
+			}
+		  </style>
+	
+	</head>
+
+	<body>
+
+		<!-- Start Header/Navigation -->
+		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+
+			<div class="container">
+				<a class="navbar-brand" href="home.html">Sommart<span>.</span></a>
+
+				
+				  
+
+				<div class="collapse navbar-collapse" id="navbarsFurni">
+					<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+						<li class="nav-item active">
+							<a class="nav-link" href="home.html">Home</a>
+						</li>
+						<li><a class="nav-link" href="shop.html">Shop</a></li>
+						<li><a class="nav-link" href="about.html">About us</a></li>
+						<li><a class="nav-link" href="services.html">Services</a></li>
+						<li><a class="nav-link" href="blog.html">Blog</a></li>
+						<li><a class="nav-link" href="contact.html">Contact us</a></li>
+					</ul>
+
+					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<img src="images/user.svg" alt="User Icon">
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="userDropdown">
+								<li><a class="dropdown-item" href="#"><i class="fas fa-envelope"></i> <span id="userEmail"></span></a></li>
+                                <li><a class="dropdown-item" href="balance.html"><i class="fas fa-money-check"></i> Balance</a></li>
+                                <li><a class="dropdown-item" href="login-customer.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                               
+                            </ul>
+						</li>
+					</ul>
+					
+					<script>
+						// Read the logged-in user's email from sessionStorage
+						var loggedInUserEmail = sessionStorage.getItem('customernow');
+						if (loggedInUserEmail) {
+							var emailElement = document.getElementById('userEmail');
+							emailElement.innerText = loggedInUserEmail;
+						}
+					</script>
+					
+					
+
+					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+						<li><a class="nav-link" href="cart.html"><img src="images/cart.svg"></a></li>
+					</ul>
+					
+					
+				</div>
+			</div>
+				
+		</nav>
+
+		<!-- End Header/Navigation -->
+
+		<!-- Start Hero Section -->
+			<div class="hero">
+				<div class="container">
+					<div class="row justify-content-between">
+						<div class="col-lg-5">
+							<div class="intro-excerpt">
+								<h1>Cart</h1>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+								<span class="navbar-toggler-icon"></span>
+							</button>
+							<form class="d-flex">
+								<input class="form-control me-2 rounded-pill" id="search-input"  type="search" placeholder="Search products to add the cart" aria-label="Search">
+								<button class="btn btn-outline-light rounded-pill" type="submit">
+								  <i class="fas fa-Add"></i> <!-- Font Awesome search icon -->
+								</button>
+							  </form>
+					
+					
+								<div id="search-results" class="dropdown-menu" aria-labelledby="search-input"></div>
+					
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- End Hero Section -->
+
+		
+
+		<div class="untree_co-section before-footer-section">
+			<div class="container">
+			  <div class="row mb-5">
+				<form class="col-md-12" method="post">
+				  <div class="site-blocks-table">
+
+
+					<table class="table" id="cart-table">
+					  <thead>
+						<tr>
+							<th class="product-id">ID</th>
+						  <th class="product-thumbnail">Image</th>
+						  <th class="product-name">Product</th>
+						  <th class="product-price">Price</th>
+						  <th class="product-quantity">Quantity</th>
+						  <th class="product-total">Total</th>
+						  <th class="product-remove">Remove</th>
+						</tr>
+					  </thead>
+					  <tbody id="cart-items"></tbody>
+					  <tr id="cart-total-row">
+						<td colspan="4">Total Amount:</td>
+						<td style="font-size: large; color: black; font-style:bold;" id="cart-total-cell">$0.00</td>
+						<td>
+							
+							  
+						</td>
+						
+					  </tr>
+					 
+					</table>
+					<input type="submit" class="btn-cart btn-checkout" value="Checkout" id="btn-checkout">
+
+					  
+
+					
+
+				  </div>
+				</form>
+			  </div>
+		  
+			  <!-- Rest of the code.c.. -->
+		  
+			</div>
+			
+		  </div>
+		  <script>
+			$(document).ready(function() {
+			var productId = new URLSearchParams(window.location.search).get('id');
+
+			console.log(productId);
+			// Make AJAX request to fetch product data
+			$.ajax({
+				url: "https://localhost:7015/api/products/" + productId, // Replace "1" with the desired product ID
+				method: "GET",
+				dataType: "json",
+				success: function(product) {
+				// Create table row dynamically using the fetched product data
+				var cartTable = document.getElementById("cart-table");
+				var cartItems = document.getElementById("cart-items");
+
+				var tableRow = document.createElement("tr");
+
+				var productThumbnailCell = document.createElement("td");
+				var productThumbnail = document.createElement("img");
+				productThumbnail.src = "images/" + product.imagePath;
+				productThumbnail.alt = "Product Image";
+				productThumbnail.classList.add("img-fluid");
+				productThumbnailCell.appendChild(productThumbnail);
+
+				var productNameCell = document.createElement("td");
+				var productName = document.createElement("h2");
+				productName.classList.add("h5", "text-black");
+				productName.innerText = product.productName;
+				productNameCell.appendChild(productName);
+
+				var productPriceCell = document.createElement("td");
+				productPriceCell.innerText = "$" + product.price.toFixed(2);
+
+				var productQuantityCell = document.createElement("td");
+				var quantityContainer = document.createElement("div");
+				quantityContainer.classList.add("input-group", "mb-3", "d-flex", "align-items-center", "quantity-container");
+				quantityContainer.style.maxWidth = "120px";
+				var decreaseBtn = document.createElement("button");
+				decreaseBtn.classList.add("btn", "btn-outline-black", "decrease");
+				decreaseBtn.type = "button";
+				decreaseBtn.innerText = "-";
+				var quantityAmount = document.createElement("input");
+				quantityAmount.type = "text";
+				quantityAmount.classList.add("form-control", "text-center", "quantity-amount");
+				quantityAmount.value = "1"; // Set the default value to 1
+				quantityAmount.placeholder = "";
+				quantityAmount.setAttribute("aria-label", "Example text with button addon");
+				quantityAmount.setAttribute("aria-describedby", "button-addon1");
+				var increaseBtn = document.createElement("button");
+				increaseBtn.classList.add("btn", "btn-outline-black", "increase");
+				increaseBtn.type = "button";
+				increaseBtn.innerText = "+";
+				quantityContainer.appendChild(decreaseBtn);
+				quantityContainer.appendChild(quantityAmount);
+				quantityContainer.appendChild(increaseBtn);
+				productQuantityCell.appendChild(quantityContainer);
+
+				var productTotalCell = document.createElement("td");
+				var totalPrice = product.price * parseInt(quantityAmount.value);
+				productTotalCell.innerText = "$" + totalPrice.toFixed(2);
+
+				var productRemoveCell = document.createElement("td");
+				var removeBtn = document.createElement("a");
+				removeBtn.href = "#";
+				removeBtn.classList.add("btn", "btn-black", "btn-sm");
+				removeBtn.innerText = "X";
+				productRemoveCell.appendChild(removeBtn);
+
+				tableRow.appendChild(productThumbnailCell);
+				tableRow.appendChild(productNameCell);
+				tableRow.appendChild(productPriceCell);
+				tableRow.appendChild(productQuantityCell);
+				tableRow.appendChild(productTotalCell);
+				tableRow.appendChild(productRemoveCell);
+
+				cartItems.appendChild(tableRow);
+
+				// Increase quantity button click event
+				increaseBtn.addEventListener("click", function() {
+					var currentQuantity = parseInt(quantityAmount.value);
+					var totalQuantity = product.quantity; // Total quantity from the database
+					if (currentQuantity < totalQuantity) {
+					var newQuantity = currentQuantity + 1;
+					quantityAmount.value = newQuantity;
+					var newTotalPrice = product.price * newQuantity;
+					productTotalCell.innerText = "$" + newTotalPrice.toFixed(2);
+					}
+				});
+				
+
+				// Decrease quantity button click event
+				decreaseBtn.addEventListener("click", function() {
+					var currentQuantity = parseInt(quantityAmount.value);
+					if (currentQuantity > 1) {
+					var newQuantity = currentQuantity - 1;
+					quantityAmount.value = newQuantity;
+					var newTotalPrice = product.price * newQuantity;
+					productTotalCell.innerText = "$" + newTotalPrice.toFixed(2);
+					}
+					
+
+				});
+				$(document).ready(function() {
+				var customerId = sessionStorage.getItem('customerid');
+				console.log(customerId);
+				var productId = new URLSearchParams(window.location.search).get('id');
+
+				// Place Order button click event
+				$(document).on('click', '#btn-checkout', function(e) {
+				e.preventDefault(); // Prevent default form submission
+
+				var cartRows = document.getElementById("cart-items").getElementsByTagName("tr");
+				var orderItems = [];
+
+				for (var i = 0; i < cartRows.length; i++) {
+					var row = cartRows[i];
+				//   var productId = row.getAttribute("data-product-id");
+				var productId = new URLSearchParams(window.location.search).get('id');
+
+					var quantity = parseInt(row.querySelector(".quantity-amount").value);
+					//var totalPrice = parseInt(row.querySelector(".productPriceCell").value);
+					// var totalPrice = productPriceCell.innerText;
+					var productPriceText = productPriceCell.innerText;
+					var totalPrice = parseFloat(productPriceText.replace('$', ''));
+
+
+					// Create an order item object for each product in the cart
+					var orderItem = {
+					productId: productId,
+					quantity:  quantity,
+					price:totalPrice
+					};
+					orderItems.push(orderItem);
+				}
+
+				var totalPrice = calculateTotalPrice(); // Implement the calculateTotalPrice function to calculate the total price
+				var currentDate = new Date();
+					var year = currentDate.getFullYear();
+					var month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+					var day = currentDate.getDate().toString().padStart(2, '0');
+					// Function to calculate the total price
+					function calculateTotalPrice() {
+					var total = 0;
+					$(".product-total").each(function() {
+					var price = parseFloat($(this).data("price"));
+					var quantity = parseInt($(this).data("quantity"));
+					total += price * quantity;
+					});
+					return total.toFixed(2);
+				}
+					
+					var orderData = {
+					orderId: "1",
+					orderDate: year + "-" + month + "-" + day,
+
+
+					totalPrice: orderItem.price,
+					productId: productId,
+					
+					customerId: customerId
+				};
+				console.log(orderData);
+
+				// Function to send the order data to the API
+				function sendOrderToAPI(orderData) {
+				
+					$.ajax({
+						
+						url: 'https://localhost:7015/api/orders',
+						method: 'POST',
+						data: JSON.stringify(orderData),
+						contentType: 'application/json',
+						success: function(response) {
+						console.log(orderData);
+						//console.log('Order created successfully:', response);
+						window.location.href = 'checkout.html'; // Change the header location to the desired page
+						},
+						error: function(error) {
+						console.error('Error creating order:', error);
+						}
+						});
+				}
+
+				sendOrderToAPI(orderData);
+				});
+
+				
+
+				// Function to send the order data to the API
+				function sendOrderToAPI(orderData) {
+					$.ajax({
+					url: "https://localhost:7015/api/orders",
+					method: "POST",
+					dataType: "json",
+					data: orderData,
+					success: function(response) {
+						console.log("Order placed successfully:", response);
+						window.location.href = 'checkout.html';
+						// Clear the cart or perform any other necessary actions
+					},
+					error: function() {
+						console.log("Error placing orderSS.");
+						console.log(orderData);
+					}
+					});
+				}
+
+				// Rest of your code...
+				});
+
+								
+
+								
+				},
+								
+								
+					error: function() {
+					console.log("Error fetching product from API.");
+					}
+								
+					});
+							
+
+					// Rest of your code...
+				});
+
+		 </script>
+
+
+
+		<!-- Start Footer Section -->
+		<footer class="footer-section">
+			<div class="container relative">
+
+				<div class="sofa-img">
+					<img src="images/sofa.png" alt="Image" class="img-fluid">
+				</div>
+
+				<div class="row">
+					<div class="col-lg-8">
+						<div class="subscription-form">
+							<h3 class="d-flex align-items-center"><span class="me-1"><img src="images/envelope-outline.svg" alt="Image" class="img-fluid"></span><span>Subscribe to Newsletter</span></h3>
+
+							<form action="#" class="row g-3">
+								<div class="col-auto">
+									<input type="text" class="form-control" placeholder="Enter your name">
+								</div>
+								<div class="col-auto">
+									<input type="email" class="form-control" placeholder="Enter your email">
+								</div>
+								<div class="col-auto">
+									<button class="btn btn-primary">
+										<span class="fa fa-paper-plane"></span>
+									</button>
+								</div>
+							</form>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="row g-5 mb-5">
+					<div class="col-lg-4">
+						<div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo">Sommart<span>.</span></a></div>
+						<p class="mb-4">Welcome with Open Hands</p>
+
+						<ul class="list-unstyled custom-social">
+							<li><a href="#"><span class="fa fa-brands fa-facebook-f"></span></a></li>
+							<li><a href="#"><span class="fa fa-brands fa-twitter"></span></a></li>
+							<li><a href="#"><span class="fa fa-brands fa-instagram"></span></a></li>
+							<li><a href="#"><span class="fa fa-brands fa-linkedin"></span></a></li>
+						</ul>
+					</div>
+
+					<div class="col-lg-8">
+						<div class="row links-wrap">
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">About us</a></li>
+									<li><a href="#">Services</a></li>
+									<li><a href="#">Blog</a></li>
+									<li><a href="#">Contact us</a></li>
+								</ul>
+							</div>
+
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">Support</a></li>
+									<li><a href="#">Knowledge base</a></li>
+									<li><a href="#">Live chat</a></li>
+								</ul>
+							</div>
+
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">Jobs</a></li>
+									<li><a href="#">Our team</a></li>
+									<li><a href="#">Leadership</a></li>
+									<li><a href="#">Privacy Policy</a></li>
+								</ul>
+							</div>
+
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">Labtops</a></li>
+									<li><a href="#">Cameras</a></li>
+									<li><a href="#">Pcs </a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="border-top copyright">
+					<div class="row pt-4">
+						<div class="col-lg-6">
+							<p class="mb-2 text-center text-lg-start">Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Built with love by <a href=""> Group a coursework</a> <!-- License information: https://untree.co/license/ -->
+            </p>
+						</div>
+
+						<div class="col-lg-6 text-center text-lg-end">
+							<ul class="list-unstyled d-inline-flex ms-auto">
+								<li class="me-4"><a href="#">Terms &amp; Conditions</a></li>
+								<li><a href="#">Privacy Policy</a></li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</footer>
+		<!-- End Footer Section -->	
+
+
+		<script src="js/bootstrap.bundle.min.js"></script>
+		<script src="js/tiny-slider.js"></script>
+		<script src="js/custom.js"></script>
+		<script>
+$(document).ready(function() {
+  $.ajax({
+    url: "https://localhost:7015/api/products",
+    method: "GET",
+    dataType: "json",
+    success: function(data) {
+      var products = data;
+	  var productSId = products.productId;
+	  		console.log(productSId);
+	
+      var searchInput = document.getElementById("search-input");
+      var searchResults = document.getElementById("search-results");
+      var cartItems = document.getElementById("cart-items");
+      var cartTotalCell = document.getElementById("cart-total-cell");
+
+      searchInput.addEventListener("input", function() {
+        var searchValue = searchInput.value.toLowerCase();
+        searchResults.innerHTML = "";
+
+        var matchingProducts = products.filter(function(product) {
+          return product.productName.toLowerCase().includes(searchValue);
+        });
+
+        matchingProducts.forEach(function(product) {
+          var resultItem = document.createElement("a");
+          resultItem.classList.add("dropdown-item");
+          resultItem.href = "#";
+          resultItem.innerText = product.productName;
+
+          var productImage = document.createElement("img");
+          productImage.classList.add("product-thumbnail");
+          productImage.src = "images/" + product.imagePath;
+
+          resultItem.appendChild(productImage);
+          searchResults.appendChild(resultItem);
+
+          resultItem.addEventListener("click", function() {
+            // Create a new row for the selected product
+            var tableRow = document.createElement("tr");
+			// Assuming you have the correct product ID available
+			product.productId ; // Replace "123" with the actual product ID
+
+			// Now you can add the product ID to the table row
+			var productIdCell = document.createElement("td");
+			productIdCell.innerText = product.productId;
+			tableRow.appendChild(productIdCell);
+
+            var productThumbnailCell = document.createElement("td");
+            var productThumbnail = document.createElement("img");
+            productThumbnail.src = "images/" + product.imagePath;
+            productThumbnail.alt = "Product Image";
+            productThumbnail.classList.add("img-fluid");
+            productThumbnailCell.appendChild(productThumbnail);
+
+            var productNameCell = document.createElement("td");
+            var productName = document.createElement("h2");
+            productName.classList.add("h5", "text-black");
+            productName.innerText = product.productName;
+            productNameCell.appendChild(productName);
+
+            var productPriceCell = document.createElement("td");
+            productPriceCell.innerText = "$" + product.price.toFixed(2);
+
+            var productQuantityCell = document.createElement("td");
+            var quantityContainer = document.createElement("div");
+            quantityContainer.classList.add("input-group", "mb-3", "d-flex", "align-items-center", "quantity-container");
+            quantityContainer.style.maxWidth = "120px";
+            var decreaseBtn = document.createElement("button");
+            decreaseBtn.classList.add("btn", "btn-outline-black", "decrease");
+            decreaseBtn.type = "button";
+            decreaseBtn.innerText = "-";
+
+            var quantityAmount = document.createElement("input");
+            quantityAmount.type = "text";
+            quantityAmount.classList.add("form-control", "text-center", "quantity-amount");
+            quantityAmount.value = "1";
+            quantityAmount.placeholder = "";
+            quantityAmount.setAttribute("aria-label", "Example text with button addon");
+            quantityAmount.setAttribute("aria-describedby", "button-addon1");
+            var increaseBtn = document.createElement("button");
+            increaseBtn.classList.add("btn", "btn-outline-black", "increase");
+            increaseBtn.type = "button";
+            increaseBtn.innerText = "+";
+            quantityContainer.appendChild(decreaseBtn);
+            quantityContainer.appendChild(quantityAmount);
+            quantityContainer.appendChild(increaseBtn);
+            productQuantityCell.appendChild(quantityContainer);
+
+            var productTotalCell = document.createElement("td");
+            productTotalCell.classList.add("product-total-cell"); // Add a class for identifying product total cells
+            var totalPrice = product.price * parseInt(quantityAmount.value);
+            productTotalCell.innerText = "$" + totalPrice.toFixed(2);
+
+            var productRemoveCell = document.createElement("td");
+            var removeBtn = document.createElement("a");
+            removeBtn.href = "#";
+            removeBtn.classList.add("btn", "btn-black", "btn-sm");
+            removeBtn.innerText = "X";
+            productRemoveCell.appendChild(removeBtn);
+
+            tableRow.appendChild(productThumbnailCell);
+            tableRow.appendChild(productNameCell);
+            tableRow.appendChild(productPriceCell);
+            tableRow.appendChild(productQuantityCell);
+            tableRow.appendChild(productTotalCell);
+            tableRow.appendChild(productRemoveCell);
+
+            cartItems.appendChild(tableRow);
+
+            // Event listener for decrease button
+            decreaseBtn.addEventListener("click", function() {
+              var currentQuantity = parseInt(quantityAmount.value);
+              if (currentQuantity > 1) {
+                quantityAmount.value = (currentQuantity - 1).toString();
+                updateTotalAmount();
+              }
+            });
+
+            // Event listener for increase button
+            increaseBtn.addEventListener("click", function() {
+              var currentQuantity = parseInt(quantityAmount.value);
+              var maximumQuantity = product.quantity; // Assuming the product object contains the quantity property
+              if (currentQuantity < maximumQuantity) {
+                quantityAmount.value = (currentQuantity + 1).toString();
+                updateTotalAmount();
+              }
+            });
+
+            // Event listener for quantity change
+            quantityAmount.addEventListener("input", function() {
+              var currentQuantity = parseInt(quantityAmount.value);
+              var maximumQuantity = product.quantity; // Assuming the product object contains the quantity property
+              if (currentQuantity < 1) {
+                quantityAmount.value = "1";
+              } else if (currentQuantity > maximumQuantity) {
+                quantityAmount.value = maximumQuantity.toString();
+              }
+              updateTotalAmount();
+            });
+
+            // Event listener for remove button
+            removeBtn.addEventListener("click", function() {
+              tableRow.remove();
+              updateTotalAmount();
+            });
+			$(document).ready(function() {
+				var customerId = sessionStorage.getItem('customerid');
+				console.log(customerId);
+				//var productId = new URLSearchParams(window.location.search).get('id');
+				var productSId = products.productId;
+	  	
+				// Place Order button click event
+				$(document).on('click', '#btn-checkout', function(e) {
+				e.preventDefault(); // Prevent default form submission
+
+				var cartRows = document.getElementById("cart-items").getElementsByTagName("tr");
+				var orderItems = [];
+
+				for (var i = 0; i < cartRows.length; i++) {
+					var row = cartRows[i];
+				 var productId = row.getAttribute("data-product-id");
+			//	var productId = new URLSearchParams(window.location.search).get('id');
+
+					var quantity = parseInt(row.querySelector(".quantity-amount").value);
+					//var proid = parseInt(row.querySelector(".").value);
+					//var totalPrice = parseInt(row.querySelector(".productPriceCell").value);
+					// var totalPrice = productPriceCell.innerText;
+					var productPriceText = productPriceCell.innerText;
+				var	productIds = productIdCell.innerText;
+				
+				//productIdCell.innerText = product.productId;
+					var totalPrice = parseFloat(productPriceText.replace('$', ''));
+					
+
+
+					// Create an order item object for each product in the cart
+					var orderItem = {
+					productId: productIds,
+					quantity:  quantity,
+					price:totalPrice
+					};
+					orderItems.push(orderItem);
+				}
+
+				var totalPrice = calculateTotalPrice(); // Implement the calculateTotalPrice function to calculate the total price
+				var currentDate = new Date();
+					var year = currentDate.getFullYear();
+					var month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+					var day = currentDate.getDate().toString().padStart(2, '0');
+					// Function to calculate the total price
+					function calculateTotalPrice() {
+					var total = 0;
+					$(".product-total").each(function() {
+					var price = parseFloat($(this).data("price"));
+					var quantity = parseInt($(this).data("quantity"));
+					total += price * quantity;
+					});
+					return total.toFixed(2);
+				}
+					
+					var orderData = {
+					orderId: "1",
+					orderDate: year + "-" + month + "-" + day,
+
+
+					totalPrice: orderItem.price,
+					productId: orderItem.productId,
+					
+					customerId: customerId
+				};
+				
+
+				// Function to send the order data to the API
+				function sendOrderToAPI(orderData) {
+				
+					$.ajax({
+						
+						url: 'https://localhost:7015/api/orders',
+						method: 'POST',
+						data: JSON.stringify(orderData),
+						contentType: 'application/json',
+						success: function(response) {
+						//console.log(orderData);
+						//console.log('Order created successfully:', response);
+						window.location.href = 'checkout.html';						},
+						error: function(error) {
+						console.error('Error creating order:', error);
+						}
+						});
+				}
+
+				sendOrderToAPI(orderData);
+				});
+
+				
+
+				
+
+				// Rest of your code...
+				});
+
+								
+
+				
+
+            // Function to update the total amount based on the products in the cart
+            function updateTotalAmount() {
+              var cartRows = cartItems.getElementsByTagName("tr");
+              var totalAmount = 0;
+
+              for (var i = 0; i < cartRows.length; i++) {
+                var row = cartRows[i];
+                var productTotalCell = row.getElementsByClassName("product-total-cell")[0];
+                var totalPrice = parseFloat(productTotalCell.innerText.replace("$", ""));
+                totalAmount += totalPrice;
+              }
+
+              cartTotalCell.innerText = "$" + totalAmount.toFixed(2);
+            }
+
+            // Update the total amount when a product is added
+            updateTotalAmount();
+          });
+        });
+
+        if (searchValue.length > 0) {
+          searchResults.style.display = "block";
+        } else {
+          searchResults.style.display = "none";
+        }
+      });
+    },
+    error: function() {
+      console.log("Error fetching products from API.");
+    }
+  });
+});
+
+
+		</script>
+	</body>
+
+</html>

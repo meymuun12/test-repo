@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+	<title>login</title>
+	<link rel="shortcut icon" type="image/x-icon" href="../../assets/img/favicon.png">
+	<link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<link rel="stylesheet" href="../../assets/plugins/fontawesome/css/fontawesome.min.css">
+	<link rel="stylesheet" href="../../assets/plugins/fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="../../assets/css/feathericon.min.css">
+	<link rel="stylesheet" href="../../assets/plugins/morris/morris.css">
+	<link rel="stylesheet" type="text/css" href="../../assets/css/bootstrap-datetimepicker.min.css">
+	<link rel="stylesheet" href="../../assets/css/style.css"> </head>
+
+<body>
+	<div class="main-wrapper login-body">
+		<div class="login-wrapper">
+			<div class="container">
+				<div class="loginbox">
+					<div class="login-left"> <img class="img-fluid" src="assets/img/logo.svg" alt="Logo"> </div>
+					<div class="login-right">
+						<div class="login-right-wrap">
+							<h1>Login</h1>
+							<p class="account-subtitle">Access to our dashboard</p>
+							<form id="login-form">
+								<div class="form-group">
+								<input type="text" id="username" class="form-control" placeholder="Username">
+								</div>
+								<div class="form-group">
+								<input type="password" id="password" class="form-control" placeholder="Password">
+								</div>
+								<div class="form-group text-center">
+								<button type="submit" class="btn btn-primary text-center">Login</button>
+								</div>								
+							<div class="text-center forgotpass"><a href="login.html">Forgot Password?</a> </div>
+							<div class="login-or"> <span class="or-line"></span> <span class="span-or">or</span> </div>
+						</div>
+							</form>
+
+								<!-- Your login form code goes here -->
+
+							<script>
+								document.getElementById('login-form').addEventListener('submit', function(event) {
+								event.preventDefault(); // Prevent form submission
+								var username = document.getElementById('username').value;
+								var password = document.getElementById('password').value;
+							
+								// Make a GET request to the API endpoint for user data
+								fetch('https://localhost:7015/api/User')
+									.then(response => response.json())
+									.then(data => {
+									// Check if the entered username and password match any user in the database
+									var user = data.find(function(user) {
+										return user.userName === username && user.password === password;
+									});
+							
+									if (user) {
+										// Store the role information in the session
+										sessionStorage.setItem('role', user.roleid);
+										sessionStorage.setItem('name', user.userName);
+
+										console.log('Role: ' + user.roleid);
+										console.log('name: ' + user.userName);
+
+							
+										// Redirect to the appropriate page based on the role
+										if (user.roleid === 'Admin') {
+										console.log('Logged-in user: ' + username);
+										window.location.href = 'index.html';
+										} else if (user.roleid === 'Cashier') {
+										window.location.href = 'index.html';
+										} else if (user.roleid === 'Seller') {
+										window.location.href = 'index.html';
+										} else {
+										console.log('Invalid role for login');
+										}
+									} else {
+										console.log('Invalid username or password');
+										var errorElement = document.createElement('p');
+										errorElement.classList.add('error-message');
+										errorElement.innerText = 'Invalid password';
+										document.getElementById('login-form').appendChild(errorElement);
+									}
+
+									
+									})
+									.catch(error => {
+									console.log('Error:', error);
+									});
+								});
+							</script>
+							<!-- <script>
+								document.getElementById('login-form').addEventListener('submit', function(event) {
+									event.preventDefault(); // Prevent form submission
+									var username = document.getElementById('username').value;
+									var password = document.getElementById('password').value;
+								
+									// Make a GET request to the API endpoint for user data
+									fetch('https://localhost:7015/Customer')
+									.then(response => response.json())
+									.then(data => {
+										// Check if the entered username and password match any user in the database
+										var customer = data.find(function(customer) {
+										return customer.email === username && customer.password === password;
+										});
+								
+										if (customer) {
+										sessionStorage.setItem('customernow', customer.email);
+										console.log('Logged-in customer: ' + username);
+								
+										// Redirect to the appropriate page
+										window.location.href = 'index.html';
+										} else {
+										console.log('Invalid username or password');
+										}
+									})
+									.catch(error => {
+										console.log('Error:', error);
+									});
+								});
+								
+								// Read the logged-in user's email from sessionStorage
+								var loggedInUserEmail = sessionStorage.getItem('customernow');
+								if (loggedInUserEmail) {
+									var emailElement = document.getElementById('userEmail');
+									emailElement.innerText = loggedInUserEmail;
+								}
+								</script> -->
+  
+								  							
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="assets/js/jquery-3.5.1.min.js"></script>
+	<script src="assets/js/popper.min.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+	<script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="assets/js/script.js"></script>
+</body>
+
+</html>

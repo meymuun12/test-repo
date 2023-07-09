@@ -1,0 +1,481 @@
+<!-- /*
+* Bootstrap 5
+* Template Name: Furni
+* Template Author: Untree.co
+* Template URI: https://untree.co/
+* License: https://creativecommons.org/licenses/by/3.0/
+*/ -->
+<script>
+	// Check if the user is logged in
+	var loggedInUserEmail = sessionStorage.getItem('customernow');
+	if (!loggedInUserEmail) {
+	  // Redirect to login.html if the user is not logged in
+	  window.location.href = 'login-customer.html';
+	}
+  </script>
+<!doctype html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Untree.co">
+    <link rel="shortcut icon" href="favicon.png">
+  
+    <meta name="description" content="" />
+    <meta name="keywords" content="bootstrap, bootstrap4" />
+  
+          <!-- Bootstrap CSS -->
+          <link href="css/bootstrap.min.css" rel="stylesheet">
+          <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+          <link href="css/tiny-slider.css" rel="stylesheet">
+          <link href="css/style.css" rel="stylesheet">
+          <title>Sommart. </title>
+	<style>
+		.order-total-cell {
+  		font-size: 25px;
+		font-style: bold;
+		
+
+		}
+
+	</style>
+	</head>
+
+	<body>
+
+		<!-- Start Header/Navigation -->
+		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+
+			<div class="container">
+				<a class="navbar-brand" href="home.html">Sommart<span>.</span></a>
+
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<form class="d-flex">
+					<input class="form-control me-2 rounded-pill" id="search-input"  type="search" placeholder="Search products" aria-label="Search">
+					<button class="btn btn-outline-light rounded-pill" type="submit">
+					  <i class="fas fa-search"></i> <!-- Font Awesome search icon -->
+					</button>
+				  </form>
+		
+
+					<div id="search-results" class="dropdown-menu" aria-labelledby="search-input"></div>
+
+				  
+
+				<div class="collapse navbar-collapse" id="navbarsFurni">
+					<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+						<li class="nav-item active">
+							<a class="nav-link" href="home.html">Home</a>
+						</li>
+						<li><a class="nav-link" href="shop.html">Shop</a></li>
+						<li><a class="nav-link" href="about.html">About us</a></li>
+						<li><a class="nav-link" href="services.html">Services</a></li>
+						<li><a class="nav-link" href="blog.html">Blog</a></li>
+						<li><a class="nav-link" href="contact.html">Contact us</a></li>
+					</ul>
+
+					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<img src="images/user.svg" alt="User Icon">
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="userDropdown">
+								<li><a class="dropdown-item" href="#"><i class="fas fa-envelope"></i> <span id="userEmail"></span></a></li>
+                                <li><a class="dropdown-item" href="balance.html"><i class="fas fa-money-check"></i> Balance</a></li>
+                                <li><a class="dropdown-item" href="login-customer.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                               
+                            </ul>
+						</li>
+					</ul>
+					
+					<script>
+						// Read the logged-in user's email from sessionStorage
+						var loggedInUserEmail = sessionStorage.getItem('customernow');
+						if (loggedInUserEmail) {
+							var emailElement = document.getElementById('userEmail');
+							emailElement.innerText = loggedInUserEmail;
+						}
+					</script>
+  
+					
+
+					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+						<li><a class="nav-link" href="cart.html"><img src="images/cart.svg"></a></li>
+					</ul>
+					
+				</div>
+			</div>
+				
+		</nav>
+		<!-- End Header/Navigation -->
+
+		<!-- Start Hero Section -->
+			<div class="hero">
+				<div class="container">
+					<div class="row justify-content-between">
+						<div class="col-lg-12">
+							<div class="intro-excerpt">
+								<h1>Balannce</h1>
+							</div>
+						</div>
+						<div class="col-lg-7">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- End Hero Section -->
+
+		<div class="untree_co-section">
+		    <div class="container">
+		      <div class="row mb-5">
+		        <div class="col-md-12">
+		          <div class="border p-4 rounded" role="alert">
+		            Returning customer? <a href="#">Click here</a> to login
+		          </div>
+		        </div>
+		      </div>
+		      <div class="row">
+		     
+		        <div class="col-md-12">
+
+		          <div class="row mb-13">
+					<div class="container">
+						<h2 class="h3 mb-3 text-black">Balance Statement </h2>
+						<div class="p-3 p-lg-5 border bg-white">
+						  <table class="table site-block-order-table mb-5">
+							<thead>
+							  <th>Product</th>
+							  <th>Total</th>
+							  <th>Date</th>
+							</thead>
+							<tbody id="invoice-items">
+							  <!-- Dynamically generated invoice items will be inserted here -->
+							</tbody>
+							<tfoot>
+							  <tr>
+								<td class="text-black font-weight-bold"><strong>Order Total</strong></td>
+								<td id="order-total" class="text-black font-weight-bold order-total-cell"><strong></strong></td>
+
+							  </tr>
+							</tfoot>
+						  </table>
+						  <div id="orderDetails"></div>
+					
+						  <!-- Include payment options and instructions if needed -->
+					
+						  <div class="form-group">
+							<input type="submit" class="btn btn-black btn-lg py-3 btn-block" value="Proceed to Payment" id="btn-paymentpost">      
+
+						<!-- //	<button class="btn btn-black btn-lg py-3 btn-block" onclick="window.location='payment.html'">Proceed to Payment</button> -->
+						  </div>
+						</div>
+					  </div>
+					
+					  <!-- Include necessary JavaScript libraries if needed -->
+					  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+					  <script>
+					   // Function to update the HTML content with order details
+					function displayOrderDetails(orderData) {
+					  var orderDetailsElement = document.getElementById("orderDetails");
+					
+					  // Create HTML content for order details
+					  var orderHTML = "<h2>Order Details</h2>";
+					  orderHTML += "<p>Order ID: " + orderData.orderId + "</p>";
+					  orderHTML += "<p>Order Date: " + orderData.orderDate + "</p>";
+					  orderHTML += "<h3>Items:</h3>";
+					  orderHTML += "<ul>";
+					  orderHTML += "<li>Product ID: " + orderData.productId + "</li>";
+					  orderHTML += "<li>Total Price: " + orderData.totalPrice + "</li>";
+					  orderHTML += "</ul>";
+					
+					  // Update the HTML content
+					  orderDetailsElement.innerHTML = orderHTML;
+					}
+					var customer = sessionStorage.getItem('customername');
+					// Retrieve the order data from the API
+					var customerId = customer;
+					
+					var apiUrl = "https://localhost:7015/api/orders";
+					
+					var apiUrlorder = "https://localhost:7015/api/orders?customerId=" + customerId;
+					
+					console.log(customer);
+					// Make an AJAX request to retrieve the order data
+					$.ajax({
+					
+					  url: apiUrlorder,
+					  method: "GET",
+					  success: function(response) {
+						// Call the function to display order details
+						var customerOrders = response.filter(function(order) {
+						return order.customerId === customer && order.status === "unpaid";
+						});
+
+						
+					
+						console.log('Customer Orders:', customerOrders);
+					
+						// Process the customer orders and display the order details
+						displayOrderDetails(customerOrders);
+					
+					  },
+					  
+					  error: function(error) {
+						console.error("Error retrieving order details:", error);
+					  }
+					});
+					
+					
+					
+					function displayOrderDetails(orders) {
+					  var invoiceItems = document.getElementById("invoice-items");
+					  var orderTotal = document.getElementById("order-total");
+					  
+					  // Clear existing invoice items
+					  invoiceItems.innerHTML = "";
+					  
+					  // Variable to store the total order price
+					  var totalPrice = 0;
+					  
+					  // Iterate over each order and generate invoice items
+					  orders.forEach(function(order) {
+						var row = document.createElement("tr");
+					
+						var productNameCell = document.createElement("td");
+						productNameCell.innerText = order.productId;
+						row.appendChild(productNameCell);
+					
+						var totalPriceCell = document.createElement("td");
+						totalPriceCell.innerText = "$" + order.totalPrice.toFixed(2);
+						row.appendChild(totalPriceCell);
+					
+						var orderDateCell = document.createElement("td");
+						orderDateCell.innerText = formatDate(order.orderDate);
+						row.appendChild(orderDateCell);
+					
+						invoiceItems.appendChild(row);
+						
+						// Add the order price to the total
+						totalPrice += order.totalPrice;
+					  });
+					
+					  // Set order total
+					  orderTotal.innerText = "$" + totalPrice.toFixed(2);
+					}
+					
+					// Function to format the order date
+					function formatDate(dateString) {
+					  var date = new Date(dateString);
+					  return date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+					}
+
+
+					
+					
+					
+					
+					  </script>
+					 
+                      
+					
+					  
+		          </div>
+
+
+		        </div>
+		      </div>
+		      <!-- </form> -->
+		    </div>
+			<script>
+
+				// Retrieve the order data from the API
+				
+				var customerid = sessionStorage.getItem('customerid');
+					// Retrieve the order data from the API
+					var customerId = customerid;
+				
+				var apiUrl = "https://localhost:7015/api/orders";
+				var paymentUrl = "https://localhost:7015/api/payments";
+				
+				// Add an event listener to the payment button
+				var paymentButton = document.getElementById("btn-paymentpost");
+				paymentButton.addEventListener("click", function() {
+				  // Make an AJAX request to retrieve the order data
+				  $.ajax({
+					url: apiUrl,
+					method: "GET",
+					success: function(response) {
+					  var customerOrders = response.filter(function(order) {
+						return order.customerId === customer && order.status === "unpaid";
+					  });
+				
+					 // console.log('Customer Orders:', customerOrders);
+				
+					  // Process the customer orders and make payments
+					  payForProducts(customerOrders);
+					},
+					error: function(error) {
+					  console.error("Error retrieving order details:", error);
+					}
+				  });
+				});
+				
+				// Function to pay for the products
+				function payForProducts(orders) {
+				  orders.forEach(function(order) {
+					var paymentData = {
+					  paymentId: 0,
+					  customerId: customerid,
+					  amount: order.totalPrice,
+				
+					  paymentMethodId: "1",
+					  orderId:order.orderId,
+				
+					  
+		
+					};
+				   
+				   
+					console.log(paymentData);
+				
+					// Make an AJAX request to send payment data
+					$.ajax({
+					 url: 'https://localhost:7015/api/payments',
+					method: 'POST',
+					data: JSON.stringify(paymentData),
+					contentType: 'application/json',
+					success: function(response) {
+					
+						console.log("Payment successful:", response);
+						window.location.href = 'home.html';	
+					  },
+					  error: function(error) {
+						console.error("Error making payment:", error);
+						console.log(paymentData);
+					  }
+					});
+				  });
+				}
+				
+				
+				  </script>
+		  </div>
+
+		<!-- Start Footer Section -->
+		<footer class="footer-section">
+			<div class="container relative">
+
+				<div class="sofa-img">
+					<img src="images/sofa.png" alt="Image" class="img-fluid">
+				</div>
+
+				<div class="row">
+					<div class="col-lg-8">
+						<div class="subscription-form">
+							<h3 class="d-flex align-items-center"><span class="me-1"><img src="images/envelope-outline.svg" alt="Image" class="img-fluid"></span><span>Subscribe to Newsletter</span></h3>
+
+							<form action="#" class="row g-3">
+								<div class="col-auto">
+									<input type="text" class="form-control" placeholder="Enter your name">
+								</div>
+								<div class="col-auto">
+									<input type="email" class="form-control" placeholder="Enter your email">
+								</div>
+								<div class="col-auto">
+									<button class="btn btn-primary">
+										<span class="fa fa-paper-plane"></span>
+									</button>
+								</div>
+							</form>
+
+						</div>
+					</div>
+				</div>
+				
+
+				<div class="row g-5 mb-5">
+					<div class="col-lg-4">
+						<div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo">Sommart<span>.</span></a></div>
+						<p class="mb-4">by coursework of Group a mpu</p>
+
+						<ul class="list-unstyled custom-social">
+							<li><a href="#"><span class="fa fa-brands fa-facebook-f"></span></a></li>
+							<li><a href="#"><span class="fa fa-brands fa-twitter"></span></a></li>
+							<li><a href="#"><span class="fa fa-brands fa-instagram"></span></a></li>
+							<li><a href="#"><span class="fa fa-brands fa-linkedin"></span></a></li>
+						</ul>
+					</div>
+
+					<div class="col-lg-8">
+						<div class="row links-wrap">
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">About us</a></li>
+									<li><a href="#">Services</a></li>
+									<li><a href="#">Blog</a></li>
+									<li><a href="#">Contact us</a></li>
+								</ul>
+							</div>
+
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">Support</a></li>
+									<li><a href="#">Knowledge base</a></li>
+									<li><a href="#">Live chat</a></li>
+								</ul>
+							</div>
+
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">Jobs</a></li>
+									<li><a href="#">Our team</a></li>
+									<li><a href="#">Leadership</a></li>
+									<li><a href="#">Privacy Policy</a></li>
+								</ul>
+							</div>
+
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">Nordic Chair</a></li>
+									<li><a href="#">Kruzo Aero</a></li>
+									<li><a href="#">Ergonomic Chair</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="border-top copyright">
+					<div class="row pt-4">
+						<div class="col-lg-6">
+							<p class="mb-2 text-center text-lg-start">Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by <a href="https://untree.co">Untree.co</a> <!-- License information: https://untree.co/license/ -->
+            </p>
+						</div>
+
+						<div class="col-lg-6 text-center text-lg-end">
+							<ul class="list-unstyled d-inline-flex ms-auto">
+								<li class="me-4"><a href="#">Terms &amp; Conditions</a></li>
+								<li><a href="#">Privacy Policy</a></li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</footer>
+		<!-- End Footer Section -->	
+
+
+		<script src="js/bootstrap.bundle.min.js"></script>
+		<script src="js/tiny-slider.js"></script>
+		<script src="js/custom.js"></script>
+	</body>
+
+</html>

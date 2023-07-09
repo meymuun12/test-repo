@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+	<title>Ecommerce Dashboard System</title>
+	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
+	<link rel="stylesheet" href="assets/css/feathericon.min.css">
+	<link rel="stylesheet" href="assets/plugins/datatables/datatables.min.css">
+	<link rel="stylesheet" href="assets/plugins/morris/morris.css">
+	<link rel="stylesheet" href="assets/css/style.css">
+	<style>
+		.fa-lg {
+		font-size: 1rem; /* Adjust the font size as needed */
+		justify-items: auto;
+		border-radius: 100%;
+		}
+
+		.rounded-circle {
+		border-radius: 3px;
+
+		}
+
+	</style>
+ </head>
+
+<body>
+	<script>
+		// Check if the user is logged in
+		var loggedInUserEmail = sessionStorage.getItem('role');
+		if (!loggedInUserEmail) {
+		  // Redirect to login.html if the user is not logged in
+		  window.location.href = 'login.html';
+		}
+	  </script> 
+	<div class="main-wrapper">
+		<div class="header">
+			<div class="header-left">
+				<a href="index.html" class="logo"> <img src="assets/img/logo.svg" width="50" height="70" alt="logo"> <span class="logoclass">E-comerce </span> </a>
+				<a href="index.html" class="logo logo-small"> <img src="assets/img/logo.svg" alt="Logo" width="30" height="30"> </a>
+			</div>
+			<a href="javascript:void(0);" id="toggle_btn"> <i class="fe fe-text-align-left"></i> </a>
+			<a class="mobile_btn" id="mobile_btn"> <i class="fas fa-bars"></i> </a>
+			<ul class="nav user-menu">
+			
+				<li class="nav-item dropdown has-arrow">
+					<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"> <span class="user-img"><img class="rounded-circle" src="assets/img/profiles/avatar-01.jpg" width="31" alt="Soeng Souy"></span> </a>
+					<div class="dropdown-menu">
+						<div class="user-header">
+							<div class="avatar avatar-sm"> <img src="assets/img/profiles/avatar-01.jpg" alt="User Image" class="avatar-img rounded-circle"> </div>
+							<div class="user-text">
+								<h6></h6>
+								<p class="text-muted mb-0"></p>
+							</div>
+						</div> <a class="dropdown-item" href="profile.html">My Profile</a> <a class="dropdown-item" href="settings.html">Account Settings</a> <a class="dropdown-item" href="login.html">Logout</a> </div>
+				</li>
+				  <script>
+					// Read the logged-in user's email from sessionStorage
+					var loggedInUserEmail = sessionStorage.getItem('customernow');
+					if (loggedInUserEmail) {
+					  var emailElement = document.getElementById('userEmail');
+					  emailElement.innerText = loggedInUserEmail;
+					}
+				  
+					// Read the logged-in user's name and role from sessionStorage
+					var name = sessionStorage.getItem('name');
+					var role = sessionStorage.getItem('role');
+				  
+					// Update the dropdown menu with the user's name and role
+					var userNameElement = document.querySelector('.user-text h6');
+					var userRoleElement = document.querySelector('.user-text p');
+					if (name && role) {
+					  userNameElement.innerText = name;
+					  userRoleElement.innerText = role;
+					}
+					document.getElementById("logout-link").addEventListener("click", function() {
+					// Clear the session storage and redirect to the login page
+						sessionStorage.clear();
+						window.location.href = "login.html";
+					});
+				  </script>
+				  
+			</ul>
+			<div class="top-nav-search">
+				<form>
+					<input type="text" class="form-control" placeholder="Search here">
+					<button class="btn" type="submit"><i class="fas fa-search"></i></button>
+				</form>
+			</div>
+		</div>
+		<div class="sidebar" id="sidebar">
+			<div class="sidebar-inner slimscroll">
+				<div id="sidebar-menu" class="sidebar-menu">
+
+				</div>
+				<script>
+					// Retrieve the role from sessionStorage
+					var role = sessionStorage.getItem('role');
+				  
+					// Get the sidebar menu element
+					var sidebarMenu = document.getElementById('sidebar-menu');
+				  
+					// Define the sidebar content based on the user's role
+					var sidebarContent = '';
+				  
+					if (role === 'Admin') {
+					  sidebarContent += `
+					  <ul>
+						<li><a href="index.html"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+						<li class="list-divider"></li>
+						
+						<li class="submenu">
+							<li class="submenu">
+								<a href="#">
+									<i class="fas fa-user-shield"></i>
+									<span>Administrator</span>
+									<span class="menu-arrow"></span>
+								</a>
+								<ul class="submenu_class" style="display: none;">
+									<li><a href="all-user.html">Users</a></li>
+									<li><a href="all-staff.html">Staff</a></li>
+									<li><a href="add-role.html">Role</a></li>
+									
+								</ul>
+							</li>
+							<li class="submenu">
+								<a href="#">
+									<i class="fas fa-user-tie"></i>
+									<span>Customers</span>
+									<span class="menu-arrow"></span>
+								</a>
+								<ul class="submenu_class" style="display: none;">
+									<li><a href="all-customers.html">All Customers</a></li>
+									<li><a href="all-oders.html">Orders</a></li>
+									<li><a href="invoices.html">Invoices</a></li>
+								</ul>
+							</li>
+						
+						
+						<li class="submenu">
+							<a href="#">
+								<i class="fas fa-box"></i>
+								<span>Products</span>
+								<span class="menu-arrow"></span>
+							</a>
+							<ul class="submenu_class" style="display: none;">
+								<li><a href="all-products.html">All Products</a></li>
+								<li><a href="all-categories.html">Categories</a></li>
+							</ul>
+						</li>
+						
+						<li class="submenu">
+							<a href="#">
+								<i class="fas fa-money-check"></i>
+								<span>Payments</span>
+								<span class="menu-arrow"></span>
+							</a>
+							<ul class="submenu_class" style="display: none;">
+								<li><a href="all-payments.html">Payments</a></li>
+								<li><a href="all-payment-method.html">Payment Method</a></li>
+							</ul>
+						</li>
+						<li class="submenu">
+							<a href="#">
+								<i class="fas fa-money-check"></i>
+								<span>Delevery</span>
+								<span class="menu-arrow"></span>
+							</a>
+							<ul class="submenu_class" style="display: none;">
+								<li><a href="all-Delevery.html">Delevery</a></li>
+							</ul>
+						</li>
+						<li class="submenu">
+							<a href="#">
+								<i class="fe fe-table"></i> 
+								<span>Reports</span>
+								<span class="menu-arrow"></span>
+							</a>
+							<ul class="submenu_class" style="display: none;">
+								<li><a href="All-reports.html">All-reports</a></li>
+							</ul>
+						</li>
+						<li>	
+							<a href="settings.html"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+							<li class="list-divider"></li>
+
+							<li> <a href="login.html"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a> </li>
+					</ul>					  `;
+					}else if (role === 'Seller') {
+					  sidebarContent += `
+		
+					  <ul>
+						<li><a href="index.html"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+						<li class="list-divider"></li>
+						
+							<li class="submenu">
+								<a href="#">
+									<i class="fas fa-user-tie"></i>
+									<span>Customers</span>
+									<span class="menu-arrow"></span>
+								</a>
+								<ul class="submenu_class" style="display: none;">
+									<li><a href="all-customers.html">All Customers</a></li>
+									<li><a href="all-oders.html">Orders</a></li>
+									<li><a href="invoices.html">Invoices</a></li>
+								</ul>
+							</li>
+						
+						
+						<li class="submenu">
+							<a href="#">
+								<i class="fas fa-box"></i>
+								<span>Products</span>
+								<span class="menu-arrow"></span>
+							</a>
+							<ul class="submenu_class" style="display: none;">
+								<li><a href="all-products.html">All Products</a></li>
+								<li><a href="all-categories.html">Categories</a></li>
+							</ul>
+						</li>
+						
+						<li class="submenu">
+							<a href="#">
+								<i class="fas fa-money-check"></i>
+								<span>Delevery</span>
+								<span class="menu-arrow"></span>
+							</a>
+							<ul class="submenu_class" style="display: none;">
+								<li><a href="all-Delevery.html">Delevery</a></li>
+							</ul>
+						</li>
+						<li class="submenu">
+							<a href="#">
+								<i class="fe fe-table"></i> 
+								<span>Reports</span>
+								<span class="menu-arrow"></span>
+							</a>
+							<ul class="submenu_class" style="display: none;">
+								<li><a href="All-reports.html">All-reports</a></li>
+							</ul>
+						</li>
+						<li>	
+							<a href="settings.html"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+							<li class="list-divider"></li>
+
+							<li> <a href="login.html"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a> </li>
+					</ul>
+		
+					  `;
+					} else if (role === 'Cashier') {
+					  sidebarContent += `
+					  <ul>
+						<li><a href="index.html"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+						<li class="list-divider"></li>
+						
+						<li class="submenu">
+							<a href="#">
+								<i class="fas fa-money-check"></i>
+								<span>Payments</span>
+								<span class="menu-arrow"></span>
+							</a>
+							<ul class="submenu_class" style="display: none;">
+								<li><a href="all-payments.html">Payments</a></li>
+								<li><a href="all-payment-method.html">Payment Method</a></li>
+							</ul>
+						</li>
+
+						<li class="submenu">
+							<a href="#">
+								<i class="fe fe-table"></i> 
+								<span>Reports</span>
+								<span class="menu-arrow"></span>
+							</a>
+							<ul class="submenu_class" style="display: none;">
+								<li><a href="All-reports.html">All-reports</a></li>
+							</ul>
+						</li>
+						<li>	
+							<a href="settings.html"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+							<li class="list-divider"></li>
+
+							<li> <a href="login.html"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a> </li>
+					</ul>
+					  `;
+					} else {
+					  // Handle other roles if needed
+					}
+				  
+					// Set the sidebar content
+					sidebarMenu.innerHTML = sidebarContent;
+				  </script>
+				
+				  
+			</div>
+		</div>
+		<div class="page-wrapper">
+			<div class="content container-fluid">
+				<div class="page-header">
+					<div class="row align-items-center">
+						
+						<div class="col ">
+							<div class="mt-5">
+								
+								<h4 class="card-title float-left mt-2">All Staff List</h4>
+								<!-- <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#StaffInsertModal"><i class="fa fa-user-plus"></i> Add Customer</button> -->
+
+								 <a href="add-staff.html" class="btn btn-primary float-right veiwbutton"><i class="fa fa-user-plus"></i> Add staff</a>
+								</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="card card-table">
+							<div class="card-body booking_card">
+							<div class="table-responsive">
+								<table id="example3" class="display table table-stripped table table-hover dataTable table-center mb-0" style="min-width: 845px" role="grid" aria-describedby="example3_info">
+									<thead>
+										<tr role="row">
+											<th>Id</th>
+											<th>Name</th>
+											<th>Telephone</th>
+											<th>Address</th>
+											<th>Gender</th>
+                                            <th>Title</th>
+                                            <th>RegisteredDate</th>
+											<th>CreatedAt</th>
+											
+											<th>Actions</th>
+                                            
+								
+									  </tr>
+									</thead>
+									<tbody>
+										
+										
+									</tbody>
+								</table>
+								  
+								
+							</div>
+							</div>
+							
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+		</div>
+	</div>
+	</div>
+	</div>
+	<script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+	<script src="assets/js/jquery-3.5.1.min.js"></script>
+	<script src="assets/js/popper.min.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+	<script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="assets/plugins/raphael/raphael.min.js"></script>
+	<script src="assets/plugins/morris/morris.min.js"></script>
+	<script src="assets/js/chart.morris.js"></script>
+	<script src="assets/js/script.js"></script>
+	<script src="assets/js/main.js"></script>
+
+	   <!-- Datatable -->
+    <script src="assets/js/jquery.dataTables.min.js"></script>
+    <script src="assets/js/datatables.init.js"></script>
+
+	<script>
+	$(document).ready(function() {
+  $.ajax({
+    url: "https://localhost:7015/api/Staff",
+    method: "GET",
+    dataType: "json",
+
+    success: function(data) {
+      var table = $('#example3').DataTable();
+      if (table !== undefined && table !== null) {
+        table.destroy();
+      }
+
+      $('#example3').DataTable({
+        data: data,
+        columns: [
+          { data: 'id' },
+          { data: 'name' },
+          { data: 'telephone' },
+          { data: 'address' },
+          { data: 'gender' },
+          { data: 'roleId' },
+		  { data: 'registeredDate' },
+          { data: 'updatedAt' },
+          {
+            data: null,
+            render: function(data, type, row) {
+              return `
+                <a class="btn btn-primary" style="font-size: 14px; padding: 5px 10px; border-radius: 50%" href="edit-staff.html?id=${data.id}" data-id="${data.id}"><i class="fas fa-edit"></i></a>
+                <a class="btn btn-secondary" style="font-size: 14px; padding: 5px 10px; border-radius: 50%" href="staff-details.html?id=${data.id}" data-id="${data.id}"><i class="fas fa-print"></i></a>
+                <a class="btn btn-danger delete-btn" style="font-size: 14px; padding: 5px 10px; border-radius: 50%" href="all-staff.html?id=${data.id}" data-id="${data.id}"><i class="fas fa-trash"></i></a>
+              `;
+            }
+          }
+        ]
+      });
+    },
+
+    error: function(jqXHR, textStatus, errorThrown) {
+      console.log(textStatus, errorThrown);
+    }
+  });
+});
+
+$(document).on("click", ".edit-btn", function() {
+  var userId = $(this).closest("tr").find("td:first-child").text();
+  console.log(customerId);
+});
+$(document).on('click', '.delete-btn', function(e) {
+  e.preventDefault();
+
+  const userId = $(this).data('id');
+  
+//   const customerName = $(this).closest('td').find('name').text();
+  const customerName = $(this).closest('tr').find('td.name').text();
+
+
+  if (confirm(`Are you sure you want to delete ${userId}?`)) {
+    $.ajax({
+      url: `https://localhost:7015/api/staff/${userId}`,
+      method: 'DELETE',
+      success: function(response) {
+        console.log(response);
+        // Code to execute after the staff is deleted
+        window.location.href = 'all-staff.html'; // Change header location to all-customers.html
+      },
+      error: function(error) {
+        console.error(error);
+        // Handle error response
+      }
+    });
+  }
+});
+ 
+	</script>
+
+</body>
+
+</html>

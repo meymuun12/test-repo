@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Invoice</title>
+  <!-- Include necessary CSS stylesheets and JavaScript libraries -->
+  <!-- Add any custom styles or scripts if needed -->
+</head>
+<body>
+  <div class="container">
+    <h2 class="h3 mb-3 text-black">Invoice</h2>
+    <div class="p-3 p-lg-5 border bg-white">
+      <table class="table site-block-order-table mb-5">
+        <thead>
+          <th>Product</th>
+          <th>Total</th>
+        </thead>
+        <tbody id="invoice-items">
+          <!-- Dynamically generated invoice items will be inserted here -->
+        </tbody>
+        <tfoot>
+          <tr>
+            <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
+            <td id="order-total" class="text-black font-weight-bold"><strong></strong></td>
+          </tr>
+        </tfoot>
+      </table>
+      <div id="orderDetails"></div>
+
+      <!-- Include payment options and instructions if needed -->
+
+      <div class="form-group">
+        <input type="submit" class="btn-payment btn-paymentpost" value="Payment" id="btn-paymentpost">      </div>
+    </div>
+  </div>
+
+  <!-- Include necessary JavaScript libraries if needed -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+
+// Retrieve the order data from the API
+
+var customerId = "1";
+
+var apiUrl = "https://localhost:7015/api/orders";
+var paymentUrl = "https://localhost:7015/api/payments";
+
+// Add an event listener to the payment button
+var paymentButton = document.getElementById("btn-paymentpost");
+paymentButton.addEventListener("click", function() {
+  // Make an AJAX request to retrieve the order data
+  $.ajax({
+    url: apiUrl,
+    method: "GET",
+    success: function(response) {
+      var customerOrders = response.filter(function(order) {
+        return order.customerId === customer && order.status === "unpaid";
+      });
+
+     // console.log('Customer Orders:', customerOrders);
+
+      // Process the customer orders and make payments
+      payForProducts(customerOrders);
+    },
+    error: function(error) {
+      console.error("Error retrieving order details:", error);
+    }
+  });
+});
+
+// Function to pay for the products
+function payForProducts(orders) {
+  orders.forEach(function(order) {
+    var paymentData = {
+      paymentId: 0,
+      customerId: "1",
+      amount: order.totalPrice,
+
+      paymentMethodId: "1",
+      orderId:order.orderId,
+
+      
+  
+  // "amount": 0,
+  // "paymentDate": "2023-05-31T06:02:33.874Z",
+  // "paymentMethodId": "2",
+  // "": "2"
+    };
+   
+   
+    console.log(paymentData);
+
+    // Make an AJAX request to send payment data
+    $.ajax({
+							  url: 'https://localhost:7015/api/payments',
+							  method: 'POST',
+							  data: JSON.stringify(paymentData),
+							  contentType: 'application/json',
+							  success: function(response) {
+    
+        console.log("Payment successful:", response);
+      },
+      error: function(error) {
+        console.error("Error making payment:", error);
+        console.log(paymentData);
+      }
+    });
+  });
+}
+
+
+  </script>
+  <script>
+   // Function to update the HTML content with order details
+function displayOrderDetails(orderData) {
+  var orderDetailsElement = document.getElementById("orderDetails");
+
+  // Create HTML content for order details
+  var orderHTML = "<h2>Order Details</h2>";
+  orderHTML += "<p>Order ID: " + orderData.orderId + "</p>";
+  orderHTML += "<p>Order Date: " + orderData.orderDate + "</p>";
+  orderHTML += "<h3>Items:</h3>";
+  orderHTML += "<ul>";
+  orderHTML += "<li>Product ID: " + orderData.productId + "</li>";
+  orderHTML += "<li>Total Price: " + orderData.totalPrice + "</li>";
+  orderHTML += "</ul>";
+
+  // Update the HTML content
+  orderDetailsElement.innerHTML = orderHTML;
+}
+var customer = sessionStorage.getItem('customername');
+// Retrieve the order data from the API
+var customerId = customer;
+var orderId = 1;
+var apiUrl = "https://localhost:7015/api/orders";
+
+var apiUrlorder = "https://localhost:7015/api/orders?customerId=" + customerId;
+
+console.log(customer);
+// Make an AJAX request to retrieve the order data
+$.ajax({
+
+  url: apiUrlorder,
+  method: "GET",
+  success: function(response) {
+    // Call the function to display order details
+    var customerOrders = response.filter(function(order) {
+      return order.customerId === customer;
+	  console.log(customer);
+
+    });
+
+    console.log('Customer Orders:', customerOrders);
+
+    // Process the customer orders and display the order details
+    displayOrderDetails(customerOrders);
+
+  },
+  error: function(error) {
+    console.error("Error retrieving order details:", error);
+  }
+});
+function displayOrderDetails(orders) {
+  var invoiceItems = document.getElementById("invoice-items");
+  var orderTotal = document.getElementById("order-total");
+  
+  // Clear existing invoice items
+  invoiceItems.innerHTML = "";
+  
+  // Variable to store the total order price
+  var totalPrice = 0;
+  
+  // Iterate over each order and generate invoice items
+  orders.forEach(function(order) {
+    var row = document.createElement("tr");
+
+    var productNameCell = document.createElement("td");
+    productNameCell.innerText = order.productId;
+    row.appendChild(productNameCell);
+
+    var totalPriceCell = document.createElement("td");
+    totalPriceCell.innerText = "$" + order.totalPrice.toFixed(2);
+    row.appendChild(totalPriceCell);
+
+    var orderDateCell = document.createElement("td");
+    orderDateCell.innerText = formatDate(order.orderDate);
+    row.appendChild(orderDateCell);
+
+    invoiceItems.appendChild(row);
+    
+    // Add the order price to the total
+    totalPrice += order.totalPrice;
+  });
+
+  // Set order total
+  orderTotal.innerText = "$" + totalPrice.toFixed(2);
+}
+
+// Function to format the order date
+function formatDate(dateString) {
+  var date = new Date(dateString);
+  return date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+}
+
+
+  </script>
+</body>
+</html>
